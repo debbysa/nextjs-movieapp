@@ -7,7 +7,24 @@ import LayoutPage from './Layout'
 const { Search } = Input
 const { Header, Content, Sider } = Layout
 const { SubMenu } = Menu
-const onSearch = (value) => console.log(value)
+const onSearch = (value) => {
+  // export const getStaticProps = async (value) => {
+  //   const res = await fetch(
+  //     `https://api.themoviedb.org/3/search/movie?api_key=01c424d50ed4dfe7cdcb8c44f56186a1&query=` +
+  //       { value } +
+  //       `&language=en-US&include_adult=false`
+  //   )
+
+  //   const data = await res.json()
+
+  //   return {
+  //     props: {
+  //       data,
+  //     },
+  //   }
+  // }
+  console.log(value)
+}
 const menu = (
   <Menu>
     <Menu.Item>
@@ -48,7 +65,7 @@ const Nav = () => {
         <div className={navStyles.search}>
           <Search
             style={navStyles.nav}
-            placeholder="find movie"
+            placeholder="Find Movie"
             allowClear
             onSearch={onSearch}
             style={{ width: 300 }}
@@ -60,3 +77,19 @@ const Nav = () => {
 }
 
 export default Nav
+
+// export const getStaticProps = async (value) => {
+//   const res = await fetch(
+//     `https://api.themoviedb.org/3/search/movie?api_key=01c424d50ed4dfe7cdcb8c44f56186a1&query=` +
+//       { value } +
+//       `&language=en-US&include_adult=false`
+//   )
+
+//   const data = await res.json()
+
+//   return {
+//     props: {
+//       data,
+//     },
+//   }
+// }

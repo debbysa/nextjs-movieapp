@@ -10,34 +10,32 @@ export default function Home({ movies }) {
     <div>
       <Nav />
       <Layout home>
-        <section>
-          <div>
-            <h1>List of Upcoming Movies</h1>
-            <Row gutter={[8, 16]}>
-              {movies.results.map((movie, i) => (
-                <Col span={4} key={i}>
-                  <Card
-                    hoverable
-                    style={{ width: 200 }}
-                    key={movie.id}
-                    cover={
-                      <img
-                        alt="example"
-                        src={
-                          'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' + movie.poster_path
-                        }
-                        width="1px"
-                        height="250px"
-                      />
-                    }
-                  >
-                    <Meta title={movie.title} description={movie.release_date} />
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-          </div>
-        </section>
+        <div>
+          <h1>List of Upcoming Movies</h1>
+          <Row gutter={[8, 32]}>
+            {movies.results.map((movie, i) => (
+              <Col span={4} key={i}>
+                <Card
+                  hoverable
+                  style={{ width: 200 }}
+                  key={movie.id}
+                  cover={
+                    <img
+                      alt="example"
+                      src={
+                        'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' + movie.poster_path
+                      }
+                      width="1px"
+                      height="250px"
+                    />
+                  }
+                >
+                  <Meta title={movie.title} description={movie.release_date} />
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </div>
       </Layout>
     </div>
   )
