@@ -1,65 +1,58 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { Row, Col, Card } from 'antd'
+import Layout from '../components/Layout'
+import Nav from '../components/Nav'
 
-export default function Home() {
+const { Meta } = Card
+
+export default function Home({ movies }) {
+  console.log(movies.results)
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+    <div>
+      <Nav />
+      <Layout home>
+        <section>
+          <div>
+            <h1>List of Upcoming Movies</h1>
+            <Row gutter={[8, 16]}>
+              {movies.results.map((movie, i) => (
+                <Col span={4} key={i}>
+                  <Card
+                    hoverable
+                    style={{ width: 200 }}
+                    key={movie.id}
+                    cover={
+                      <img
+                        alt="example"
+                        src={
+                          'https://www.themoviedb.org/t/p/w600_and_h900_bestv2' + movie.poster_path
+                        }
+                        width="1px"
+                        height="250px"
+                      />
+                    }
+                  >
+                    <Meta title={movie.title} description={movie.release_date} />
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </div>
+        </section>
+      </Layout>
     </div>
   )
+}
+
+export const getStaticProps = async () => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=01c424d50ed4dfe7cdcb8c44f56186a1&language=en-US&page=1`
+  )
+
+  const movies = await res.json()
+
+  return {
+    props: {
+      movies,
+    },
+  }
 }
